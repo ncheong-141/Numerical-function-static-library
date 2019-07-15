@@ -41,7 +41,11 @@ Learning objectives:
 
           - Code safety 
           
-          - Use of template functions 
+          - Use of template functions.
+          
+          - Operator and function overloading.
+          
+          - Usage of all std::vector member functions
           
           - Creation of interfaces 
           
