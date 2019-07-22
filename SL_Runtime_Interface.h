@@ -5,22 +5,12 @@
 #include <iostream>
 #include <vector>
 
-/* IDEA!
- Make guards active and not-active on debug/release mode using a macro like the error log system.
-i.e., you run your program in debug mode, check if everything is all good, then deactive the guards on release mode
-with the same code.
-Note: this is a garbage idea if your data size is time dependent*/
-
 /* Need a plotter*/
 
 /* --------------------------------------- Macros ---------------------------------------------------*/
 /* Log system macro for debugging*/
 
 /* Active/In-active guards*/
-
-
-
-
 
 /*  ---------------------------------Start of RMF API -----------------------------------------------*/
 /*  Note:- When using std::vector loops must be indexed with size_t as vector.size(),.capacity() is size_t datatype
@@ -168,7 +158,7 @@ namespace RMF {
 
 		/* data() -> Pointer to the underlying element storage. For non-empty containers, the returned 
 					 pointer compares equal to the address of the first element.*/
-		T* data()				{ return contiguous_data.data();	}
+		T* data()		{ return contiguous_data.data();	}
 		const T* data() const	{ return contiguous_data.data();	}
 
 		/* begin(), end, rbegin, rend and const variants (bloody weird datatypes)*/
@@ -186,9 +176,9 @@ namespace RMF {
 		_c_iterator			cend()		{ return contiguous_data.cend();	}
 
 		_r_iterator			rbegin()	{ return contiguous_data.rbegin();	}
-		_cr_iterator		crbegin()	{ return contiguous_data.crbegin();	}
+		_cr_iterator			crbegin()	{ return contiguous_data.crbegin();	}
 		_r_iterator			rend()		{ return contiguous_data.rend();	}
-		_cr_iterator		crend()		{ return contiguous_data.crend();	}
+		_cr_iterator			crend()		{ return contiguous_data.crend();	}
 
 		/* empty() -> checks whether container is empty */
 		bool empty() { return contiguous_data.empty(); }
@@ -298,7 +288,7 @@ namespace RMF {
 
 			// Note, no reserve as this can hugely detriment performance if this function
 			// is called alot of times. Reserve should be called outside this function.
-contiguous_data.emplace_back(object);
+			contiguous_data.emplace_back(object);
 		}
 
 		/* push_back -> adds an element to the end*/
@@ -431,9 +421,9 @@ contiguous_data.emplace_back(object);
 
 	/* arange() fills array with incrementing values (+- 1) from specified start to end*/
 	// Generates values between start and end according to discrete parameter (Note, cols must have an extra element for end point) 
-	void				arange(std::vector<int>& dyn_arr_data, const int start, const int end);
-	void				arange(std::vector<float>& dyn_arr_data, const float start, const float end, const size_t NP);
-	void				arange(std::vector<double>& dyn_arr_data, const double start, const double end, const size_t NP);
+	void			arange(std::vector<int>& dyn_arr_data, const int start, const int end);
+	void			arange(std::vector<float>& dyn_arr_data, const float start, const float end, const size_t NP);
+	void			arange(std::vector<double>& dyn_arr_data, const double start, const double end, const size_t NP);
 	std::vector<int>	arange(const int start, const int end);
 	std::vector<float>	arange(const float start, const float end, const size_t NP);
 	std::vector<double> arange(const double start, const double end, const size_t NP);
