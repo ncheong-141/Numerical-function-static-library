@@ -99,7 +99,7 @@ namespace RMF {
 	template <typename T> void mem_reserver(std::vector<T>& dyn_arr_data, size_t ref_colsize) {
 
 		if (dyn_arr_data.capacity() != ref_colsize) {		// If incorrect memory/no memory allocated
-			dyn_arr_data.reserve(ref_colsize);				// Allocate memory to avoid unneccessary copying
+			dyn_arr_data.reserve(ref_colsize);		// Allocate memory to avoid unneccessary copying
 		}
 	}
 	
@@ -110,17 +110,17 @@ namespace RMF {
 	template <typename T> void mem_corrector(std::vector<T>& dyn_arr_data, size_t ref_colsize) {
 
 		if (dyn_arr_data.size() > ref_colsize) {		// If vector is bigger than needed size 
-			dyn_arr_data.resize(ref_colsize);			// Re-size vector to required size
-			dyn_arr_data.shrink_to_fit();				// Deallocate any un-used memory
+			dyn_arr_data.resize(ref_colsize);		// Re-size vector to required size
+			dyn_arr_data.shrink_to_fit();			// Deallocate any un-used memory
 		}
-		else if (dyn_arr_data.size() < ref_colsize) {	// If vector is smaller than needed size
-			dyn_arr_data.reserve(ref_colsize);			// Allocate correct memory (note, this does not add onto memory, end-start is the value of allocation)
-														// Furthermore, with testing, if you only re-size it allocates extra memory!!
-			dyn_arr_data.resize(ref_colsize);			// Re-size vector to required size
+		else if (dyn_arr_data.size() < ref_colsize) {		// If vector is smaller than needed size
+			dyn_arr_data.reserve(ref_colsize);		// Allocate correct memory (note, this does not add onto memory, end-start is the value of allocation)
+									// Furthermore, with testing, if you only re-size it allocates extra memory!!
+			dyn_arr_data.resize(ref_colsize);		// Re-size vector to required size
 		}
-		else {												// If vector is same size
+		else {							// If vector is same size
 			if (dyn_arr_data.capacity() != ref_colsize) {	// If incorrect memory allocated
-				dyn_arr_data.shrink_to_fit();				// Deallocate any un-used memory
+				dyn_arr_data.shrink_to_fit();		// Deallocate any un-used memory
 			}
 		}
 	}
@@ -132,7 +132,7 @@ namespace RMF {
 	// mem_reserver 
 	template <typename T> void mem_reserver(std::vector< std::vector<T> >& dyn_arr_data, size_t rows, size_t cols) {
 		
-		dyn_arr_data.reserve(rows);				// Reserve rows	
+		dyn_arr_data.reserve(rows);			// Reserve rows	
 		for (size_t j = 0; j < cols; j++) {
 			dyn_arr_data[j].reserve(cols);		// Reserve collumns 
 		}
@@ -142,14 +142,14 @@ namespace RMF {
 	template <typename T> void mem_corrector(std::vector < std::vector<T> >& dyn_arr_data, size_t rows, size_t cols) {
 
 		if (dyn_arr_data.size() > rows) {	// If array is bigger rowwise 
-			dyn_arr_data.resize(rows);		// Re-size vector to required size 
+			dyn_arr_data.resize(rows);	// Re-size vector to required size 
 			dyn_arr_data.shrink_to_fit();	// Deallocate any unused memory 
 		}
 		else if (dyn_arr_data.size() < rows) {	// If array rows is smaller 
 			dyn_arr_data.reserve(rows);		
-			dyn_arr_data.resize(rows);			// Re-size vector to required size 
+			dyn_arr_data.resize(rows);	// Re-size vector to required size 
 		}
-		else {									// If array is same size rowwise
+		else {					// If array is same size rowwise
 			
 			// Trim excess data 
 			if (dyn_arr_data.capacity() != rows) {	
@@ -270,7 +270,7 @@ namespace RMF {
 
 	/* arange() fills array with incrementing values (+- 1) from specified start to end*/
 	// Generates values between start and end according to discrete parameter (Note, cols must have an extra element for end point) 
-	void				arange(std::vector<int>& dyn_arr_data, const int start, const int end) {
+	void arange(std::vector<int>& dyn_arr_data, const int start, const int end) {
 
 		// Pre-define collumn dimension for reducing amount of calculations 
 		size_t ref_colsize = abs(end - start);
@@ -298,39 +298,39 @@ namespace RMF {
 		}
 		
 	}
-	void				arange(std::vector<float>& dyn_arr_data, const float start, const float end, const size_t NP) {
+	void arange(std::vector<float>& dyn_arr_data, const float start, const float end, const size_t NP) {
 
 		// Optimize data structure for function
 		mem_corrector(dyn_arr_data, NP);
 
-		float total_length = abs(end - start);			// Calculate total value between start and end
+		float total_length = abs(end - start);		// Calculate total value between start and end
 		float disc_inc = total_length / (NP - 1);       // Calculate the increments between each element
-		float disc_val = 0;								// Initialize discrete value of elements 
+		float disc_val = 0;				// Initialize discrete value of elements 
 
 		// Loop over collumns and write values 
 		for (size_t j = 0; j < NP; j++) {
 
-			dyn_arr_data[j] = disc_val;					// Write element
-			disc_val += disc_inc;						// Add increment
+			dyn_arr_data[j] = disc_val;		// Write element
+			disc_val += disc_inc;			// Add increment
 		}
 	}
-	void				arange(std::vector<double>& dyn_arr_data, const double start, const double end, const size_t NP) {
+	void arange(std::vector<double>& dyn_arr_data, const double start, const double end, const size_t NP) {
 
 		// Optimize data structure for function
 		mem_corrector(dyn_arr_data, NP);
 	
-		double total_length = abs(end - start);			// Calculate total value between start and end
+		double total_length = abs(end - start);		// Calculate total value between start and end
 		double disc_inc = total_length / (NP - 1);      // Calculate the increments between each element
-		double disc_val = 0;						    // Initialize discrete value of elements 
+		double disc_val = 0;				// Initialize discrete value of elements 
 
 		// Loop over collumns and write values 
 		for (size_t j = 0; j < NP; j++) {
 
-			dyn_arr_data[j] = disc_val;					// Write element
-			disc_val += disc_inc;						// Add increment
+			dyn_arr_data[j] = disc_val;		// Write element
+			disc_val += disc_inc;			// Add increment
 		}
 	}
-	std::vector<int>	arange(const int start, const int end) {
+	std::vector<int> arange(const int start, const int end) {
 
 		// Pre-define collumn dimension for reducing amount of calculations 
 		size_t ref_colsize = abs(end - start);
@@ -352,22 +352,21 @@ namespace RMF {
 				increment--;
 			}
 		}
-
 		return dyn_arr_data;
 	}
 	std::vector<float>	arange(const float start, const float end, const size_t NP) {
 
 		std::vector<float> dyn_arr_data(NP);
 
-		float total_length = abs(end - start);			// Calculate total value between start and end
+		float total_length = abs(end - start);		// Calculate total value between start and end
 		float disc_inc = total_length / (NP - 1);       // Calculate the increments between each element
-		float disc_val = 0;								// Initialize discrete value of elements 
+		float disc_val = 0;				// Initialize discrete value of elements 
 
 		// Loop over collumns and write values 
 		for (size_t j = 0; j < NP; j++) {
 
-			dyn_arr_data[j] = disc_val;					// Write element
-			disc_val += disc_inc;						// Add increment
+			dyn_arr_data[j] = disc_val;		// Write element
+			disc_val += disc_inc;			// Add increment
 		}
 
 		return dyn_arr_data;
@@ -376,17 +375,16 @@ namespace RMF {
 
 		std::vector<double> dyn_arr_data(NP);
 
-		double total_length = abs(end - start);			// Calculate total value between start and end
-		double disc_inc = total_length / (NP - 1);       // Calculate the increments between each element
-		double disc_val = 0;								// Initialize discrete value of elements 
+		double total_length = abs(end - start);		// Calculate total value between start and end
+		double disc_inc = total_length / (NP - 1);      // Calculate the increments between each element
+		double disc_val = 0;				// Initialize discrete value of elements 
 
 		// Loop over collumns and write values 
 		for (size_t j = 0; j < NP; j++) {
 
-			dyn_arr_data[j] = disc_val;					// Write element
-			disc_val += disc_inc;						// Add increment
+			dyn_arr_data[j] = disc_val;		// Write element
+			disc_val += disc_inc;			// Add increment
 		}
-
 		return dyn_arr_data;
 	}
 
@@ -399,7 +397,6 @@ namespace RMF {
 		for (size_t i = 0; i < dyn_arr_data.size(); i++) {
 			dyn_arr_data[i] = tilevalue;
 		}
-
 	}
 	template <typename T> void tile(T tilevalue, std::vector< std::vector<T> >& dyn_arr_data) {
 		
@@ -474,7 +471,6 @@ namespace RMF {
 				max_val = *data_addr; 
 			}
 		}
-
 		return max_val; 
 	}
 	template <typename T> T max(DYN_C2D<T>& dyn_arr_data) {
@@ -491,7 +487,6 @@ namespace RMF {
 				max_val = *data_addr;
 			}
 		}
-
 		return max_val;
 	}
 
@@ -528,7 +523,7 @@ namespace RMF {
 	}
 
 	/* sum () sums all element of an array (1 and 2D)*/
-	template <typename T> T		sum(std::vector<T>& dyn_arr_data) {
+	template <typename T> T	sum(std::vector<T>& dyn_arr_data) {
 		
 		// Guard for zero vector 
 		size_guard(dyn_arr_data, "sum()"); 
@@ -539,7 +534,7 @@ namespace RMF {
 		}
 		return sum_val; 
 	}
-	template <typename T> void	sum(DYN_C2D<T>& dyn_arr_data, std::vector<T>& sum_result, bool sum_row_or_col) {
+	template <typename T> void sum(DYN_C2D<T>& dyn_arr_data, std::vector<T>& sum_result, bool sum_row_or_col) {
 
 		// Guard for zero vector 
 		size_guard(dyn_arr_data, "sum()");
