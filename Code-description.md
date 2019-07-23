@@ -12,7 +12,7 @@ Notes on code structure:
           - All functions pass in non-primitive parameters by reference to, if applicable,  preserve size information 
             and/or avoid unneccessary copying. 
             
-          - All functions are optimized for maximum execution time. 
+          - All functions are optimized for minimum execution time. 
           
           - All functions are guarded for invalid inputs. 
           
